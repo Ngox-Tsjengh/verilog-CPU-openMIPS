@@ -18,9 +18,13 @@ module openmips_min_sopc_tb();
 
 	genvar i;		//dump registers
 	for (i = 0; i < 8; i = i + 1) initial $dumpvars(0,openmips_min_sopc0.openmips0.regfile1.regs[i]);
+	for (i = 0; i < 4; i = i + 1) initial $dumpvars(0,openmips_min_sopc0.data_ram0.bank3[i]);
+	for (i = 0; i < 4; i = i + 1) initial $dumpvars(0,openmips_min_sopc0.data_ram0.bank2[i]);
+	for (i = 0; i < 4; i = i + 1) initial $dumpvars(0,openmips_min_sopc0.data_ram0.bank1[i]);
+	for (i = 0; i < 4; i = i + 1) initial $dumpvars(0,openmips_min_sopc0.data_ram0.bank0[i]);
 
 	initial begin
-		$readmemh ("inst_rom.data",openmips_min_sopc0.openmips0.inst_rom0.inst_mem);
+		$readmemh ("inst_rom.data",openmips_min_sopc0.inst_rom0.inst_mem);
 		$dumpfile("dump.vcd");
 		$dumpvars(0,openmips_min_sopc0);
 				rst = `RstEnable;

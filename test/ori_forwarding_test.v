@@ -5,16 +5,16 @@ module ori_forwarding_test();
     reg     clk, rst;
     integer i  ;
 
-    open_mips_min_sopc open_mips_min_sopc0 (clk, rst);
+    openmips_min_sopc openmips_min_sopc0 (clk, rst);
 
     always #1 clk = ~clk;
     initial begin
         $dumpfile("../test/ori_forwarding_test.vcd");
         $dumpvars;
         for (i = 2; i <= 5; i = i+1)
-            $dumpvars(0, open_mips_min_sopc0.openmips0.regfile1.regs[i]);
+            $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[i]);
 
-        $readmemh("../data/ori_forwarding_test.txt", open_mips_min_sopc0.inst_rom0.inst_mem, 0, 6);
+        $readmemh("../data/ori_forwarding_test.data", openmips_min_sopc0.inst_rom0.inst_mem, 0, 6);
 
         clk = 0;
         rst = 1;

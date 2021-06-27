@@ -1,28 +1,38 @@
-CROSS_COMPILE	=	mips-sde-elf-
+CROSS_COMPILE	=	/opt/self/Cellar/mips-sde-elf/bin/mips-sde-elf-
 CC				=	$(CROSS_COMPILE)as
 LD				=	$(CROSS_COMPILE)ld
 OBJCOPY			=	$(CROSS_COMPILE)objcopy
 OBJDUMP			=	$(CROSS_COMPILE)objdump
 
-OBJS			=	inst_rom.o
+vpath	%.s ../data
+
+Targets			=	$(patsubst %.S,%.data,$(wildcard ../data/*.S))
 
 # ********************
 # Rules of Compilation
 # ********************
 
-all: inst_rom.om inst_rom.bin inst_rom.asm inst_rom.data
+all: Bin2Mem $(Targets)
 
 %.o: %.S
 	$(CC) -mips32 $< -o $@
-inst_rom.om: ram.ld $(OBJS)
-	$(LD) -T ram.ld $(OBJS) -o $@
-inst_rom.bin: inst_rom.om
+
+%.om: %.o ram.ld
+	$(LD) -T ram.ld $< -o $@
+
+%.bin: %.om
 	$(OBJCOPY) -O binary $< $@
-inst_rom.asm: inst_rom.om
+
+%.asm: %.om
 	$(OBJDUMP) -D $< > $@
-inst_rom.data: inst_rom.bin
+
+%.data: %.bin 
 	./Bin2Mem -o $@ $<
-	cp $@ ../
+
+Bin2Mem: Bin2Mem.cpp
+	g++ -o Bin2Mem $<
 
 clean:
-	rm -f *.o *.om *.bin *.data *.mif *.asm
+	rm -f Bin2Mem
+	cd ../data ; \
+	rm -f *.o *.om *.bin *.data *.mif *.asm Bin2Mem

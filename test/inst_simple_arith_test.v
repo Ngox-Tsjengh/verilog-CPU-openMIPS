@@ -5,16 +5,16 @@ module inst_simple_arith_test();
     reg     clk, rst;
     integer i  ;
 
-    open_mips_min_sopc open_mips_min_sopc0 (clk,rst);
+    openmips_min_sopc openmips_min_sopc0 (clk,rst);
 
     always #1 clk = ~clk;
     initial begin
         $dumpfile("../test/inst_simple_arith_test.vcd");
         $dumpvars;
         for (i = 1; i <= 4; i = i+1)
-            $dumpvars(0, open_mips_min_sopc0.openmips0.regfile1.regs[i]);
+            $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[i]);
 
-        $readmemh("../data/inst_simple_arith_test.txt", open_mips_min_sopc0.inst_rom0.inst_mem, 0, 42);
+        $readmemh("../data/inst_simple_arith_test.data", openmips_min_sopc0.inst_rom0.inst_mem, 0, 42);
 
         clk = 0;
         rst = 1;
