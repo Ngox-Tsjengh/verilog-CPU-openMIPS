@@ -40,7 +40,11 @@ sim: $(TARGET) asm
 	$(SIM) $(SIMFLAGS) $(TARGET)
 
 wave: sim
-	$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave dump.vcd)
+	ifeq ($(OSTYPE), linux-gnu)
+		$(shell gtkwave dump.vcd)
+	else
+		$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave dump.vcd)
+	endif
 
 #===================================================================
 # Verilator
