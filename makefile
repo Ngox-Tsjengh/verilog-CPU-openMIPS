@@ -40,7 +40,7 @@ sim: $(TARGET) asm
 	$(SIM) $(SIMFLAGS) $(TARGET)
 
 wave: sim
-	ifeq ($(OSTYPE), linux-gnu)
+	ifeq ($(QT_IM_MODULE),ibus)
 		$(shell gtkwave dump.vcd)
 	else
 		$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave dump.vcd)
@@ -68,7 +68,11 @@ $(Target): $(Target).cpp obj_dir/$(SimFile)__ALL.a
 
 wave_veri: $(Target)
 	$(shell ./$(Target))
-	$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave $(Target).vcd)
+	ifeq ($(QT_IM_MODULE),ibus)
+		$(shell gtkwave dump.vcd)
+	else
+		$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave dump.vcd)
+	endif
 
 i_clean:
 	rm -rf  $(TARGET)
