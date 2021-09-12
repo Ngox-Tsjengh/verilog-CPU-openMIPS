@@ -1,10 +1,14 @@
 SRCS			=	$(wildcard src/*.v)
-SRCS			+=	$(wildcard *.v)
+SRCS			+=	test/assert.v
+SRCS			+=	test/openmips_min_sopc_tb.v
 TOP				=	openmips_min_sopc_tb
 TARGET			=	openMIPS.out
 
 Target			=	openmips_min_sopc_tb
 SimFile			=	$(addprefix V,$(Target))
+DumpFile		=	test/out/dump.vcd
+
+OS				=	$(shell uname -s)
 
 ASMFILE			=	$(wildcard asm/*.S)
 
@@ -37,14 +41,14 @@ asm: $(ASMFILE)
 	make -C asm/
 
 sim: $(TARGET) asm
-	$(SIM) $(SIMFLAGS) $(TARGET)
+	$(SIM) $(SIMFLAGS) $(addprefix test/out/,$(TARGET))
 
 wave: sim
-	ifeq ($(QT_IM_MODULE),ibus)
-		$(shell gtkwave dump.vcd)
-	else
-		$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave dump.vcd)
-	endif
+ifeq "$(OS)" "Darwin"
+	$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave $(DumpFile) &)
+else
+	$(shell gtkwave $(DumpFile) &)
+endif
 
 #===================================================================
 # Verilator
@@ -68,11 +72,11 @@ $(Target): $(Target).cpp obj_dir/$(SimFile)__ALL.a
 
 wave_veri: $(Target)
 	$(shell ./$(Target))
-	ifeq ($(QT_IM_MODULE),ibus)
-		$(shell gtkwave dump.vcd)
-	else
-		$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave dump.vcd)
-	endif
+ifeq "$(OS)" "Darwin"
+	$(shell /Applications/gtkwave.app/Contents/Resources/bin/gtkwave $(DumpFile) &)
+else
+	$(shell gtkwave $(DumpFile) &)
+endif
 
 i_clean:
 	rm -rf  $(TARGET)

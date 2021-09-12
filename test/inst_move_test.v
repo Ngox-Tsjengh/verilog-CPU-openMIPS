@@ -9,7 +9,7 @@ module inst_move_test();
 
     always #1 clk = ~clk;
     initial begin
-        $dumpfile("../test/inst_move_test.vcd");
+        $dumpfile("../test/waveform/inst_move_test.vcd");
         $dumpvars;
         for (i = 1; i <= 4; i = i+1)
             $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[i]);

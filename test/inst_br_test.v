@@ -9,7 +9,7 @@ module inst_br_test();
 
     always #1 clk = ~clk;
     initial begin
-        $dumpfile("../test/inst_br_test.vcd");
+        $dumpfile("../test/waveform/inst_br_test.vcd");
         $dumpvars;
         $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[1]);
         $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[3]);

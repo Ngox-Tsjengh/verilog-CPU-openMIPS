@@ -9,7 +9,7 @@ module inst_shift_test();
 
     always #1 clk = ~clk;
     initial begin
-        $dumpfile("../test/inst_shift_test.vcd");
+        $dumpfile("../test/waveform/inst_shift_test.vcd");
         $dumpvars;
         $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[2]);
         $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[5]);

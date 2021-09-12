@@ -12,7 +12,7 @@ module inst_ll_sc_test();
     wire [31:0] mem0x0004 = {openmips_min_sopc0.data_ram0.bank3[1], openmips_min_sopc0.data_ram0.bank2[1], openmips_min_sopc0.data_ram0.bank1[1], openmips_min_sopc0.data_ram0.bank0[1]};
     wire [31:0] mem0x0008 = {openmips_min_sopc0.data_ram0.bank3[2], openmips_min_sopc0.data_ram0.bank2[2], openmips_min_sopc0.data_ram0.bank1[2], openmips_min_sopc0.data_ram0.bank0[2]};
     initial begin
-        $dumpfile("../test/inst_ll_sc_test.vcd");
+        $dumpfile("../test/waveform/inst_ll_sc_test.vcd");
         $dumpvars;
         $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[1]);
         $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[3]);

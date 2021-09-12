@@ -1,6 +1,11 @@
 `timescale 1ns/1ps
 `include "defines.v"
-module data_ram(
+module data_ram #
+(
+	parameter DataMemNum	 = 512,
+	parameter DataMemNumLog2 = 9
+)
+(
 	input wire					clk,
 	input wire					ce,
 	input wire					we,
@@ -10,12 +15,12 @@ module data_ram(
 
 	output reg[`DataBus]		data_o
 );
-	reg[`ByteWidth]				bank0 [0:`DataMemNum-1];
-	reg[`ByteWidth]				bank1 [0:`DataMemNum-1];
-	reg[`ByteWidth]				bank2 [0:`DataMemNum-1];
-	reg[`ByteWidth]				bank3 [0:`DataMemNum-1];
+	reg[`ByteWidth]				bank0 [0:DataMemNum-1];
+	reg[`ByteWidth]				bank1 [0:DataMemNum-1];
+	reg[`ByteWidth]				bank2 [0:DataMemNum-1];
+	reg[`ByteWidth]				bank3 [0:DataMemNum-1];
 
-	wire[`DataMemNumLog2-1:0]	saddr = addr[`DataMemNumLog2+1:2];
+	wire[DataMemNumLog2-1:0]	saddr = addr[DataMemNumLog2+1:2];
 
 	/* Store Data*/
 	always @(posedge clk) begin

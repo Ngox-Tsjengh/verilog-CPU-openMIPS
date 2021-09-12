@@ -9,7 +9,7 @@ module ori_forwarding_test();
 
     always #1 clk = ~clk;
     initial begin
-        $dumpfile("../test/ori_forwarding_test.vcd");
+        $dumpfile("../test/waveform/ori_forwarding_test.vcd");
         $dumpvars;
         for (i = 2; i <= 5; i = i+1)
             $dumpvars(0, openmips_min_sopc0.openmips0.regfile1.regs[i]);

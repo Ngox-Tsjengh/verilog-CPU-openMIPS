@@ -14,6 +14,10 @@ if(1) begin \
 	$finish;	\
 end else if(0)
 
+//! Memory Assertion
+`define AM(id, expected) \
+	`ASSERT({openmips_min_sopc0.data_ram0.bank3[id], openmips_min_sopc0.data_ram0.bank2[id], openmips_min_sopc0.data_ram0.bank1[id], openmips_min_sopc0.data_ram0.bank0[id]} === expected)
+
 //! Generic Register Assertion
 `define AR(id, expected) \
 	`ASSERT(openmips_min_sopc0.openmips0.regfile1.regs[id] === expected)

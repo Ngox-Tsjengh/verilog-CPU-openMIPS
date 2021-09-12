@@ -1,6 +1,11 @@
 `timescale 1ns/1ps
 `include "defines.v"
-module inst_rom(
+module inst_rom #
+(
+	parameter InstMemNum	 = 512,
+	parameter InstMemNumLog2 = 9
+)
+(
 	input wire					ce,
 	input wire[`InstAddrBus]	addr,
 
@@ -8,13 +13,13 @@ module inst_rom(
 );
 
 	//Define Data Array
-	reg[`InstBus]				inst_mem[0:`InstMemNum-1];
+	reg[`InstBus]				inst_mem[0:InstMemNum-1];
 
 	always @(*) begin
 		if (ce==`ChipDisable) begin
 			inst		= `ZeroWord;
 		end else begin
-			inst		= inst_mem[addr[`InstMemNumLog2+1:2]];
+			inst		= inst_mem[addr[InstMemNumLog2+1:2]];
 		end
 	end
 
