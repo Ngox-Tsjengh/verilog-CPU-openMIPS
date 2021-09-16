@@ -1,12 +1,23 @@
 `ifndef	ASSERT_V
 `define ASSERT_V
 
-`define ASSERT(x) if (1) begin \
-		if (!(x)) begin \
-		$display("\033[91;1m[%s:%0d] ASSERTION FAILURE: %s\033[0m", `__FILE__, `__LINE__, `"x`"); \
-		$finish_and_return(1); \
-	end \
-end else if (0)
+/* if env variable DEBUG if defined, the testbench will continue to 
+ * executing rather than exiting when meeting wrong assetion.
+ * */
+`ifdef DEBUG
+	`define ASSERT(x) if (1) begin \
+			if (!(x)) begin \
+			$display("\033[91;1m[%s:%0d] ASSERTION FAILURE: %s\033[0m", `__FILE__, `__LINE__, `"x`"); \
+			$finish_and_return(1); \
+		end \
+	end else if (0)
+`else 
+	`define ASSERT(x) if (1) begin \
+			if (!(x)) begin \
+			$display("\033[91;1m[%s:%0d] TEST FAILURE: %s\033[0m", `__FILE__, `__LINE__, `"x`"); \
+		end \
+	end else if (0)
+`endif //DEBUG
 
 `define PASS(test) #2 \
 if(1) begin \

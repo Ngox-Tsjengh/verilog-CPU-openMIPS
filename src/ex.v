@@ -47,8 +47,8 @@ module ex(
 	output reg				whilo_o,
 	// Load & Store
 	output wire[`AluOpBus]	aluop_o,			//! Tell MEM to L&S
-	output wire[`RegBus]		reg2_o,				//! Data to Store or Original Value of Reg to Load
-	output wire[`RegBus]		mem_addr_o,			//! Address of L&S Operation
+	output wire[`RegBus]	reg2_o,				//! Data to Store or Original Value of Reg to Load
+	output wire[`RegBus]	mem_addr_o,			//! Address of L&S Operation
 
 	//To DIV
 	output reg[`RegBus]		div_opdata1_o,

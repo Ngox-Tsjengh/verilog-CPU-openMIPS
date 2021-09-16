@@ -1,4 +1,9 @@
+OS				=	$(shell uname -s)
+ifeq "$(OS)" "Darwin"
 CROSS_COMPILE	=	/opt/self/Cellar/mips-sde-elf/bin/mips-sde-elf-
+else
+CROSS_COMPILE	=	mips-linux-gnu-
+endif
 CC				=	$(CROSS_COMPILE)as
 LD				=	$(CROSS_COMPILE)ld
 OBJCOPY			=	$(CROSS_COMPILE)objcopy

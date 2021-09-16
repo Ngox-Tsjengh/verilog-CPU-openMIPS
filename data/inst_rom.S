@@ -15,7 +15,7 @@ _start:
    sb   $3,0x0($0)       # [0x0] = 0xcc
    lb   $1,0x3($0)       # $1 = 0xffffffff
    lbu  $1,0x2($0)       # $1 = 0x000000ee
-   nop
+   //nop				//this nop caused me about 3 hours to debug
 
    ori  $3,$0,0xaabb
    sh   $3,0x4($0)       # [0x4] = 0xaa, [0x5] = 0xbb

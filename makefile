@@ -6,7 +6,7 @@ TARGET			=	openMIPS.out
 
 Target			=	openmips_min_sopc_tb
 SimFile			=	$(addprefix V,$(Target))
-DumpFile		=	test/out/dump.vcd
+DumpFile		=	test/waveform/dump.vcd
 
 OS				=	$(shell uname -s)
 
@@ -31,6 +31,7 @@ VINC 			:=	$(VERILATOR_ROOT)/include
 #===================================================================
 
 $(TARGET): $(SRCS)
+	@mkdir -p test/out test/waveform
 	$(LOG) $(LOGFLAGS) $(LDFLAGS) -s $(TOP) -o $(addprefix test/out/,$(notdir $@)) $^ 
 
 asm: $(ASMFILE)

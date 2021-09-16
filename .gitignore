@@ -6,3 +6,5 @@
 *.vcd
 xsim.dir
 xvlog.*
+!src/defines.v
+defines.v

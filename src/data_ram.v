@@ -24,7 +24,7 @@ module data_ram #
 
 	/* Store Data*/
 	always @(posedge clk) begin
-		if(ce == `ChipEnable) begin
+		if(ce == `ChipDisable) begin
 			//data_o 					<= `ZeroWord;
 		end else if(we == `WriteEnable) begin
 			if (sel[3])	bank3[saddr]	<= data_i[31:24];
